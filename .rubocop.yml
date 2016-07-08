@@ -1,0 +1,15 @@
+AllCops:
+  Include:
+    - '**/Rakefile'
+    - '**/config.ru'
+  Exclude:
+    - 'bin/*'
+    - 'spec/*'
+    - 'db/**/*'
+    - 'config/**/*'
+
+Documentation:
+  Enabled: false
+  
+Metrics/LineLength:
+  Max: 99
