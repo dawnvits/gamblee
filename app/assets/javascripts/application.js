@@ -12,6 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= requrie semantic
+//= require semantic
 //= require turbolinks
 //= require_tree .

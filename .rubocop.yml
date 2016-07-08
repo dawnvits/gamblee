@@ -4,12 +4,16 @@ AllCops:
     - '**/config.ru'
   Exclude:
     - 'bin/*'
-    - 'spec/*'
+    - 'spec/**/*'
     - 'db/**/*'
     - 'config/**/*'
+    - 'app/controllers/users/*'
 
 Documentation:
   Enabled: false
   
 Metrics/LineLength:
   Max: 99
+
+Style/ClassAndModuleChildren:
+  Enabled: false
