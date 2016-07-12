@@ -1,6 +1,6 @@
 div class="ui sidebar right inverted vertical menu"
   div class="ui hidden divider"
-  <button class="ui facebook button"> Login with Facebook</button>
+  = link_to "Login with Facebook", user_facebook_omniauth_authorize_path, class: "ui facebook button"
   div class="ui hidden divider"
   div class="ui hidden divider"
   div class="ui hidden divider"
