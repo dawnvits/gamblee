@@ -1,10 +1,10 @@
 class User < ApplicationRecord
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, :omniauth_providers => [:facebook]
 
   def self.from_omniauth(auth)
-    find_or_create_by(email: auth.info.email) do |user|
+    where(email: auth.info.email).first_or_initialize.tap do |user|
       user.provider = auth.provider
       user.uid = auth.uid
       user.email = auth.info.email
@@ -12,6 +12,8 @@ class User < ApplicationRecord
       user.last_name = auth.info.last_name
       user.name = auth.info.name
       user.image = auth.info.image
+      user.skip_confirmation!
+      user.save!
     end
   end
 
@@ -21,5 +23,9 @@ class User < ApplicationRecord
         user.email = data['email'] if user.email.blank?
       end
     end
+  end
+
+  def password_required?
+    super && provider.blank?
   end
 end
