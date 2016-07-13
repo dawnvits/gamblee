@@ -13,6 +13,7 @@ gem 'puma', '~> 3.0'
 gem 'jquery-rails'
 gem 'jbuilder', '~> 2.5'
 gem 'rails', '~> 5.0.0'
+gem 'rack-mini-profiler', require: false
 gem 'redis', '~> 3.0'
 gem 'rubocop', require: false
 gem 'sass-rails', '~> 5.0'
