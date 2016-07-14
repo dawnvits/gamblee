@@ -4,5 +4,6 @@ Rails.application.routes.draw do
    get 'users/login', to: 'users/sessions#login', as: 'custom_login_page'
  end
 
+ resources :games
  root 'home#index'
 end
