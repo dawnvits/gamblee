@@ -4,8 +4,4 @@ jQuery(document).on('turbolinks:load', function() {
   });
   
   jQuery('.ui.checkbox').checkbox();
-  
-  jQuery('.message .close').on('click', function() {
-    jQuery(this).closest('.message').transition('fade');
-  });
 });
