@@ -1,5 +1,18 @@
+html, body, {
+  background-color: #d3d3d3 !important;
+}
+
+body.pushable > .pusher {
+  background-color: #d3d3d3 !important;
+}
+ 
 .pusher {
   padding-top: 40px;
+}
+
+#home__information-segment{
+  background: image-url("background.png");
+  background-size: cover;
 }
 
 #sidebar-menu__facebook-login {
