@@ -1,16 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  let(:incomplete_user_info) { build(:incomplete_user_info) }
-  let(:user) { build(:user) }
-
-  context 'registration' do
-    it 'with a missing field' do
-      expect(incomplete_user_info.save).to eq(false)
-    end
-
-    it 'with no missing field' do
-      expect(user.save).to eq(true)
-    end
-  end
+  it { should validate_presence_of(:first_name) }
+  it { should validate_presence_of(:last_name) }
+  it { should validate_presence_of(:email) }
+  it { should validate_presence_of(:contact_number) }
 end
