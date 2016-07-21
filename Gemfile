@@ -34,6 +34,7 @@ end
 group :development do
   gem 'better_errors'
   gem 'brakeman', :require => false
+  gem 'guard'
   gem 'listen', '~> 3.0.5'
   gem 'pry-rails'
   gem 'spring'
