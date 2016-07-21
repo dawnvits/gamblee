@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :omniauthable, :omniauth_providers => [:facebook]
+         :omniauthable, omniauth_providers: [:facebook]
 
   def self.from_omniauth(auth)
     where(email: auth.info.email).first_or_initialize.tap do |user|
@@ -18,7 +18,7 @@ class User < ApplicationRecord
       user.name = auth.info.name
       user.image = auth.info.image
       user.skip_confirmation!
-      user.save!
+      user.save! validate: false
     end
   end
 
