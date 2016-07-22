@@ -1,5 +1,7 @@
-div class="ui centered grid"
-  div class="sixteen wide mobile ten wide tablet eight wide computer column"
-    h1 Home#index
-    p Find me in app/views/home/index.html.slim
-    = link_to "Logout", destroy_user_session_path, method: :delete
+= render :partial => "shared/header"
+= render :partial => "shared/navigation"
+.pusher
+  div class="ui centered grid"
+    div class="sixteen wide mobile ten wide tablet eight wide computer column"
+      h1 Home#index
+      p Find me in app/views/home/index.html.slim

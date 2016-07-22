@@ -2,12 +2,17 @@ div class="ui sidebar right inverted vertical menu"
   div class="ui hidden divider"
   .item
     = image_tag "luckyending.png", alt: "Lucky Ending"
-  = link_to "Login with Facebook", user_facebook_omniauth_authorize_path, class: "ui facebook button", id: "sidebar-menu__facebook-login"
-  div class="ui hidden divider"
-  div class="ui hidden divider"
-  div class="ui hidden divider"
-  = link_to "Login", custom_login_page_path, class: "item sidebar-menu__login", id: "sidebar-menu__link"
-  = link_to "Registration", new_user_registration_path, class: "item", id: "sidebar-menu__link"
+  - if !user_signed_in?
+    = link_to "Login with Facebook", user_facebook_omniauth_authorize_path, class: "ui facebook button", id: "sidebar-menu__facebook-login"
+    div class="ui hidden divider"
+    div class="ui hidden divider"
+    div class="ui hidden divider"
+    = link_to "Login", custom_login_page_path, class: "item sidebar-menu__login", id: "sidebar-menu__link"
+    = link_to "Registration", new_user_registration_path, class: "item", id: "sidebar-menu__link"
+  - else
+    - if current_user.admin
+      = link_to "Create Game", new_game_path, class: "item", id: "sidebar-menu__link"
+    = link_to "Stop Playing", destroy_user_session_path, method: :delete, class: "item", id: "sidebar-menu__link"
   hr id="sidebar-menu__divider"
   = link_to "How to Play", root_path, class: "item", id: "sidebar-menu__link"
   = link_to "About Lucky Ending", root_path, class: "item", id: "sidebar-menu__link"
