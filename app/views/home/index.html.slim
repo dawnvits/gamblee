@@ -3,5 +3,13 @@
 .pusher
   div class="ui centered grid"
     div class="sixteen wide mobile ten wide tablet eight wide computer column"
-      h1 Home#index
-      p Find me in app/views/home/index.html.slim
+      div class="ui hidden divider"
+      - @games.each do |game, i|
+        div class="ui cards"
+          div class="card"
+            div class="content"
+              div class="header"
+              div class="description"
+                = game.description
+            div class="ui bottom attached primary button"
+              | Place Bet

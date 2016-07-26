@@ -1,0 +1,17 @@
+= form_for(@game, :url => games_path, :html => {class: 'ui form'}) do |f|
+  - if @game.errors.full_messages.any?
+    div class="ui message"
+      ul class="list"
+        - @game.errors.full_messages.each do |error_message|
+          li = error_message
+  div class="two fields"
+    .field
+      label Schedule
+      = f.datetime_local_field :schedule
+    .field
+      label Betting Duration
+      = f.number_field :betting_time, in: 1..100
+  .field
+    label Game Description
+    = f.text_area :description, placeholder: 'Enter description here...'
+  = f.submit "Submit", class: "ui primary medium fluid button"
