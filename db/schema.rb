@@ -10,10 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160725071051) do
+ActiveRecord::Schema.define(version: 20160727090455) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bets", force: :cascade do |t|
+    t.integer  "game_id"
+    t.integer  "user_id"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["game_id"], name: "index_bets_on_game_id", using: :btree
+    t.index ["user_id"], name: "index_bets_on_user_id", using: :btree
+  end
+
+  create_table "credits", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "purchased_credit", default: 0
+    t.integer  "free_credit",      default: 0
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.index ["user_id"], name: "index_credits_on_user_id", using: :btree
+  end
 
   create_table "games", force: :cascade do |t|
     t.text     "description"
@@ -22,6 +41,16 @@ ActiveRecord::Schema.define(version: 20160725071051) do
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
     t.decimal  "betting_time", default: "0.0"
+  end
+
+  create_table "transactions", force: :cascade do |t|
+    t.integer  "bet_id"
+    t.integer  "credit_id"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["bet_id"], name: "index_transactions_on_bet_id", using: :btree
+    t.index ["credit_id"], name: "index_transactions_on_credit_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|

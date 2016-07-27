@@ -9,7 +9,8 @@
           div class="card"
             div class="content"
               div class="header"
-              div class="description"
                 = game.description
+              div class="description"
+                = game.schedule.strftime '%B %m, %Y at %I:%M%p'
             div class="ui bottom attached primary button"
-              | Place Bet
+              | ‎Place Bet

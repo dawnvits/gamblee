@@ -13,7 +13,11 @@ div class="ui sidebar right inverted vertical menu"
     - if current_user.admin
       = link_to "Create Game", new_game_path, class: "item", id: "sidebar-menu__link"
       = link_to "See All Games", games_path, class: "item", id: "sidebar-menu__link"
-    = link_to "Stop Playing", destroy_user_session_path, method: :delete, class: "item", id: "sidebar-menu__link"
+    - else
+      div class="header item" id="sidebar-menu__link"
+        | Credits: ₱
+        = credits
+      = link_to "Stop Playing", destroy_user_session_path, method: :delete, class: "item", id: "sidebar-menu__link"
   hr id="sidebar-menu__divider"
   = link_to "How to Play", root_path, class: "item", id: "sidebar-menu__link"
   = link_to "About Lucky Ending", root_path, class: "item", id: "sidebar-menu__link"
