@@ -12,5 +12,4 @@
                 = game.description
               div class="description"
                 = game.schedule.strftime '%B %m, %Y at %I:%M%p'
-            div class="ui bottom attached primary button"
-              | ‎Place Bet
+            = link_to "Place Bet", game_path(game), class: 'ui bottom attached primary button'
