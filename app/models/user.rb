@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   has_one :credit
-  has_many :transactions
-  
+  has_many :bets
+
   validates :first_name,
             :last_name,
             :email,
