@@ -4,6 +4,11 @@ Rails.application.routes.draw do
    get 'users/login', to: 'users/sessions#login', as: 'custom_login_page'
  end
 
- resources :games
+ resources :games do
+   member do
+     post 'process_bet'
+   end
+ end
+ get '/dashboard', to: 'home#dashboard'
  root 'home#index'
 end

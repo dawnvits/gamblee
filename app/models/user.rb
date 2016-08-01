@@ -2,6 +2,8 @@ class User < ApplicationRecord
   has_one :credit
   has_many :bets
 
+  after_commit :create_free_credits, on: :create
+
   validates :first_name,
             :last_name,
             :email,
@@ -35,5 +37,10 @@ class User < ApplicationRecord
 
   def password_required?
     super && provider.blank?
+  end
+
+  def create_free_credits
+    Credit.create!(user_id: self.id, free_credit: 100)
+    self.credit.update_total_credit
   end
 end

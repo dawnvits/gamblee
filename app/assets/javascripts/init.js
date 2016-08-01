@@ -4,4 +4,5 @@ jQuery(document).on('turbolinks:load', function() {
   });
   
   jQuery('.ui.checkbox').checkbox();
+  jQuery('.menu .item').tab();
 });

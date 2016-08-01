@@ -1,4 +1,4 @@
 class Transaction < ApplicationRecord
-  belongs_to :bet
+  scope :latest, -> { order('created_at DESC') }
   belongs_to :credit
 end

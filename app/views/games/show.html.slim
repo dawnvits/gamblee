@@ -1,2 +1,20 @@
-h1 Games#show
-p Find me in app/views/games/show.html.slim
+= render :partial => "shared/header"
+= render :partial => "shared/navigation"
+.pusher
+  div class="ui centered grid"
+    div class="ten wide mobile eight wide tablet six wide computer column"
+      div class="ui hidden divider"
+        div class="ui attached message"
+          div class="header"
+            = @game.description
+          p
+            = @game.schedule.strftime '%B %m, %Y at %I:%M%p'
+        = form_tag process_bet_game_path(@game), class: "ui form attached fluid segment" do |f|
+          .field
+            label Lucky Number (1-99)
+            = number_field_tag :lucky_number, in: 1..99
+          .field
+            label Amount
+            = text_field_tag :bet_amount
+          .field
+            = submit_tag "Place Bet", class: 'ui primary fluid button'

@@ -4,6 +4,10 @@
   div class="ui centered grid"
     div class="sixteen wide mobile ten wide tablet eight wide computer column"
       div class="ui hidden divider"
+      - if flash[:notice]
+        div class="ui floating message"
+          p
+            = flash[:notice]
       - @games.each do |game, i|
         div class="ui cards"
           div class="card"

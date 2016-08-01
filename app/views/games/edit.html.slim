@@ -2,6 +2,31 @@
 = render :partial => "shared/navigation"
 .pusher
   div class="ui centered grid"
-    div class="sixteen wide mobile ten wide tablet eight wide computer column"
+    div class="fourteen wide mobile ten wide tablet eight wide computer column"
       div class="ui hidden divider"
-        = render :partial => "form"
+        - if flash[:notice]
+          div class="ui floating message"
+            p
+              = flash[:notice]
+        = form_for(@game, :url => game_path(@game), method: :put, :html => {class: 'ui form'}) do |f|
+		  - if @game.errors.full_messages.any?
+		    div class="ui message"
+		      ul class="list"
+		        - @game.errors.full_messages.each do |error_message|
+		          li = error_message
+		  div class="two fields"
+		    .field
+		      label Schedule
+		      = f.datetime_local_field :schedule
+		    .field
+		      label Betting Duration
+		      = f.number_field :betting_time, in: 1..100
+		  .field
+		    label Game Description
+		    = f.text_area :description, placeholder: 'Enter description here...'
+		  div class="inline field"
+		    div class="ui checkbox"
+		      = f.check_box :for_betting, tabindex: 0, class: 'hidden'
+		      label
+		        | For Betting
+		  = f.submit "Submit", class: "ui primary medium fluid button"
