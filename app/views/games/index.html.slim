@@ -2,7 +2,7 @@
 = render :partial => "shared/navigation"
 .pusher
   div class="ui centered grid"
-    div class="fourteen wide mobile ten wide tablet eight wide computer column"
+    div class="fourteen wide mobile twelve wide tablet twelve wide computer column"
       div class="ui hidden divider"
       - if flash[:notice]
         div class="ui floating message"
@@ -23,7 +23,7 @@
               td = game.description
               td = game.schedule.strftime '%B %m, %Y at %I:%M%p'
               td = betting_status(game.for_betting)
-              td = game.betting_time
+              td = (game.schedule + game.betting_time.minutes).strftime "%B %m, %Y at %I:%M%p"
               td
                 div class="ui buttons"
                   = link_to "Edit", edit_game_path(game), class: 'ui mini primary button'
