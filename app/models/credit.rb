@@ -8,8 +8,8 @@ class Credit < ApplicationRecord
     this.update_attributes(total_credit: total_credit)
   end
 
-  def can_bet?(amount)
-    if self.total_credit >= amount
+  def can_bet?(amount, lucky_number)
+    if self.total_credit >= amount && lucky_number.between?(1,99)
       substract_from_credit(amount)
       true
     else
@@ -28,7 +28,7 @@ class Credit < ApplicationRecord
       )
       self.update_attributes(free_credit: 0)
     else
-      self.update_free_credit(remaining_credit, amount)
+      self.subtract_from_free_credit(remaining_credit, amount)
     end
     update_total_credit
   end
@@ -42,7 +42,7 @@ class Credit < ApplicationRecord
     )
   end
 
-  def update_free_credit(remaining_credit, amount)
+  def subtract_from_free_credit(remaining_credit, amount)
     self.update_attributes(free_credit: remaining_credit)
     self.transactions.create(credit_id: self.id, description: "Subtracted ₱#{amount} from your free credit")
   end
