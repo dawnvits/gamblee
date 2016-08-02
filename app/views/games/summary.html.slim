@@ -1,0 +1,26 @@
+= render :partial => "shared/header"
+= render :partial => "shared/navigation"
+.pusher
+  div class="ui centered grid"
+    div class="fourteen wide mobile twelve wide tablet twelve wide computer column"
+      div class="ui hidden divider"
+        table class="ui table"
+          thead
+            tr
+              th Description
+              th Name of Betters
+              th Lucky Number
+              th Amount
+            tr
+          tbody
+            tr
+              td = @game.description
+              td 
+                - @user_ids.each do |id|
+                  = username(id)
+              td
+                - @lucky_numbers.each do |ln|
+                  = ln
+              td
+               - @amounts.each do |amount|
+                  = amount

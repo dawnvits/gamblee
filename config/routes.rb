@@ -6,7 +6,9 @@ Rails.application.routes.draw do
 
  resources :games do
    member do
+     get 'summary'
      post 'process_bet'
+     post 'determine_winner'
    end
  end
  get '/dashboard', to: 'home#dashboard'

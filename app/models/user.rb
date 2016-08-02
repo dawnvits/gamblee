@@ -3,6 +3,7 @@ class User < ApplicationRecord
   has_many :bets
 
   after_commit :create_free_credits, on: :create
+  after_create :set_name
 
   validates :first_name,
             :last_name,
@@ -44,12 +45,18 @@ class User < ApplicationRecord
     self.credit.update_total_credit
   end
 
-  def new_bet(game_id, game_description, lucky_number)
+  def new_bet(game_id, game_description, lucky_number, amount)
     Bet.create!(
       game_id: game_id,
       user_id: self.id,
       lucky_number: lucky_number,
+      amount: amount,
       description: "Your lucky number for #{game_description} is #{lucky_number}"
     )
+  end
+
+  def set_name
+    name = "#{self.first_name} #{self.last_name}"
+    self.update_attributes(name: name) if self.name.nil?
   end
 end
