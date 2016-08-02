@@ -3,7 +3,7 @@ class CreateGames < ActiveRecord::Migration[5.0]
     create_table :games do |t|
       t.text :description
       t.datetime :schedule
-      t.boolean :for_betting, default: :false
+      t.integer :minutes_for_betting, default: 0
       t.timestamps
     end
   end

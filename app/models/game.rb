@@ -1,8 +1,12 @@
 class Game < ApplicationRecord
-  scope :for_betting, -> { where(for_betting: true) }
+  scope :latest, -> { order('created_at DESC') }
   has_many :bets
 
-  validates :betting_time,
+  validates :minutes_for_betting,
             :description,
             :schedule, presence: true
-end
+
+  def accepts_bet?
+    Time.now < self.schedule.advance(minutes: self.minutes_for_betting)
+  end
+ end

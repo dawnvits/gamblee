@@ -1,6 +1,6 @@
 class GamesController < ApplicationController
   def index
-    @games = Game.all
+    @games = Game.all.latest
   end
 
   def new
@@ -25,17 +25,11 @@ class GamesController < ApplicationController
   def process_bet
     @game = Game.find(params[:id])
 
-    if current_user.credit.can_bet?(params[:bet_amount].to_i)
-      Bet.create!(
-        game_id: @game.id,
-        user_id: current_user.id,
-        lucky_number: params[:lucky_number],
-        description: "Your lucky number for #{@game.description} is #{params[:lucky_number]}"
-      )
-
+    if @game.accepts_bet? && current_user.credit.can_bet?(params[:bet_amount].to_i, params[:lucky_number].to_i)
+      current_user.new_bet(@game.id, @game.description, params[:lucky_number].to_i)
       flash[:notice] = "Placed bet successfully on #{@game.description} with ₱#{params[:bet_amount]}"
     else
-      flash[:notice] = 'Unable to place bet. Please check your game credits.'
+      flash[:notice] = 'Unable to place bet. Please try again.'
     end
 
     redirect_to root_url
@@ -70,6 +64,6 @@ class GamesController < ApplicationController
   private
 
   def game_params
-    params.require(:game).permit(:schedule, :betting_time, :description, :for_betting)
+    params.require(:game).permit(:schedule, :minutes_for_betting, :description)
   end
 end

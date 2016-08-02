@@ -39,10 +39,9 @@ ActiveRecord::Schema.define(version: 20160729093013) do
   create_table "games", force: :cascade do |t|
     t.text     "description"
     t.datetime "schedule"
-    t.boolean  "for_betting",  default: false
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
-    t.decimal  "betting_time", default: "0.0"
+    t.integer  "minutes_for_betting", default: 0
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
   end
 
   create_table "transactions", force: :cascade do |t|

@@ -43,4 +43,13 @@ class User < ApplicationRecord
     Credit.create!(user_id: self.id, free_credit: 100)
     self.credit.update_total_credit
   end
+
+  def new_bet(game_id, game_description, lucky_number)
+    Bet.create!(
+      game_id: game_id,
+      user_id: self.id,
+      lucky_number: lucky_number,
+      description: "Your lucky number for #{game_description} is #{lucky_number}"
+    )
+  end
 end

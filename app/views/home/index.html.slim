@@ -8,13 +8,14 @@
         div class="ui floating message"
           p
             = flash[:notice]
-      - if !current_user.admin
-        - @games.each do |game, i|
-          div class="ui cards"
-            div class="card"
-              div class="content"
-                div class="header"
-                  = game.description
-                div class="description"
-                  = game.schedule.strftime '%B %m, %Y at %I:%M%p'
-              = link_to "Place Bet", game_path(game), class: 'ui bottom attached primary button'
+      - if !current_user.admin and @games.any?
+        - @games.each do |game|
+          -if game.accepts_bet?
+            div class="ui cards"
+              div class="card"
+                div class="content"
+                  div class="header"
+                    = game.description
+                  div class="description"
+                    = game.schedule.strftime '%B %m, %Y at %I:%M%p'
+                = link_to "Place Bet", game_path(game), class: 'ui bottom attached primary button'

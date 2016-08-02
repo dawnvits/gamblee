@@ -16,13 +16,8 @@
 		      = f.datetime_local_field :schedule
 		    .field
 		      label Betting Duration
-		      = f.number_field :betting_time, in: 1..100
+		      = f.number_field :minutes_for_betting, in: 1..99
 		  .field
 		    label Game Description
 		    = f.text_area :description, placeholder: 'Enter description here...'
-		  div class="inline field"
-		    div class="ui checkbox"
-		      = f.check_box :for_betting, tabindex: 0, class: 'hidden'
-		      label
-		        | For Betting
 		  = f.submit "Submit", class: "ui primary medium fluid button"

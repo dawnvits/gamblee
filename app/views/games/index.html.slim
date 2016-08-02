@@ -13,7 +13,6 @@
           tr
             th Description
             th Schedule
-            th For Betting
             th Betting Ends
             th Actions
           tr
@@ -22,8 +21,7 @@
             tr
               td = game.description
               td = game.schedule.strftime '%B %m, %Y at %I:%M%p'
-              td = betting_status(game.for_betting)
-              td = (game.schedule + game.betting_time.minutes).strftime "%B %m, %Y at %I:%M%p"
+              td = (game.schedule + game.minutes_for_betting.minutes).strftime "%B %m, %Y at %I:%M%p"
               td
                 div class="ui buttons"
                   = link_to "Edit", edit_game_path(game), class: 'ui mini primary button'
