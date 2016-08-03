@@ -1,9 +1,9 @@
 module ApplicationHelper
   def credits
-    current_user.credit.free_credit + current_user.credit.purchased_credit
+    current_user.credit.free_credit + current_user.credit.game_credit
   end
 
-  def username(id)
-    User.find(id).name
+  def user_name(id)
+    "#{User.find(id).first_name} #{User.find(id).last_name}"
   end
 end

@@ -4,6 +4,25 @@
   div class="ui centered grid"
     div class="fourteen wide mobile twelve wide tablet twelve wide computer column"
       div class="ui hidden divider"
+        - if flash[:notice]
+          div class="ui floating message"
+            p
+              = flash[:notice]
+        - if @game.winner_determined?
+          div class="ui segment"
+            This game has a winner!
+        - else
+          div class="ui segment"
+             = form_tag determine_winner_game_path(@game), class: "ui form attached fluid segment" do |f|
+                div class="two fields"
+                  .field
+                    h4 class="ui header"
+                      | There is no winner yet for this game
+                  .field
+                    label Winning Number for Game
+                    = number_field_tag :winning_number, in: 1..99
+                    div class="ui hidden divider"
+                    = submit_tag "Determine Winner", class: "ui button"
         table class="ui table"
           thead
             tr
@@ -17,10 +36,10 @@
               td = @game.description
               td 
                 - @user_ids.each do |id|
-                  = username(id)
+                  li = user_name(id)
               td
                 - @lucky_numbers.each do |ln|
-                  = ln
+                  br = ln
               td
-               - @amounts.each do |amount|
-                  = amount
+                - @amounts.each do |amount|
+                  br = amount

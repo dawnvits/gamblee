@@ -24,6 +24,5 @@
               td = (game.schedule + game.minutes_for_betting.minutes).strftime "%B %d, %Y at %I:%M%p"
               td
                 div class="ui buttons"
-                  = link_to "Determine Winner", determine_winner_game_path(game), method: :post, class: 'ui mini green button'
                   = link_to "Edit", edit_game_path(game), class: 'ui mini primary button'
                   = link_to "Delete", game_path(game), method: :delete, class: 'ui mini red button'

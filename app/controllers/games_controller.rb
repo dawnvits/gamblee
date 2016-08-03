@@ -44,8 +44,18 @@ class GamesController < ApplicationController
 
   def determine_winner
     game = Game.find(params[:id])
-    flash[:notice] = 'Winner detected!'
-    redirect_to games_url
+    winner_user_ids = Bet.get_winner_ids(game.id, params[:winning_number].to_i)
+
+    if winner_user_ids.length >= 1
+      winner_user_ids.each do |id|
+        Credit.update_for_winner(id, game.id)
+      end
+      flash[:notice] = 'Congratulations to the winner/s!'
+    else
+      flash[:notice] = 'No Winner!'
+    end
+
+    redirect_to summary_game_url(game)
   end
 
   def edit

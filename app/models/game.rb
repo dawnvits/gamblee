@@ -1,6 +1,7 @@
 class Game < ApplicationRecord
   scope :latest, -> { order('created_at DESC') }
   has_many :bets
+  has_many :game_transactions
 
   validates :minutes_for_betting,
             :description,
