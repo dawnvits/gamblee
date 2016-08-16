@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: devise_keys)
+    devise_parameter_sanitizer.permit(:account_update, keys: [:paypal_email])
   end
 
   def devise_keys

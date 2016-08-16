@@ -10,7 +10,7 @@
               = flash[:notice]
         - if @game.winner_determined?
           div class="ui segment"
-            This game has a winner!
+            This game already has winners!
         - else
           div class="ui segment"
              = form_tag determine_winner_game_path(@game), class: "ui form attached fluid segment" do |f|

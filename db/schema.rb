@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160803062237) do
+ActiveRecord::Schema.define(version: 20160811101830) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,15 @@ ActiveRecord::Schema.define(version: 20160803062237) do
     t.integer  "winning_number",      default: 0
   end
 
+  create_table "payment_notifications", force: :cascade do |t|
+    t.string   "payer_email"
+    t.string   "txn_id"
+    t.string   "ipn_track_id"
+    t.integer  "mc_gross",     default: 0
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
   create_table "transactions", force: :cascade do |t|
     t.integer  "credit_id"
     t.text     "description"
@@ -87,6 +96,7 @@ ActiveRecord::Schema.define(version: 20160803062237) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.boolean  "admin",                  default: false
+    t.string   "paypal_email",           default: ""
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
