@@ -11,7 +11,7 @@ class Credit < ApplicationRecord
   end
 
   def can_bet?(amount, lucky_number)
-    if self.total_credit >= amount && lucky_number.between?(1,99)
+    if self.total_credit >= amount && lucky_number.between?(1, 99)
       substract_from_credit(amount)
       true
     else
