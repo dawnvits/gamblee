@@ -14,7 +14,7 @@ en:
       last_attempt: "You have one more attempt before your account is locked."
       not_found_in_database: "Invalid %{authentication_keys} or Password."
       timeout: "Your session expired. Please sign in again to continue."
-      unauthenticated: "Login to play Lucky Ending."
+      unauthenticated: "Please login to play Lucky Ending."
       unconfirmed: "You have to confirm your email address before continuing."
     mailer:
       confirmation_instructions:

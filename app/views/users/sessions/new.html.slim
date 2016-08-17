@@ -4,11 +4,36 @@
   div class="ui centered grid"
     div class="fourteen wide mobile ten wide tablet eight wide computer column"
       - flash.each do |key, value|
-        div class="ui center aligned black message" id="devise__flash-message"
-          =value
+        div class="ui tiny green message"
+          i class="close icon"
+          div class="header"
+            = value
 
-    div class="sixteen wide mobile twelve wide tablet ten wide computer column" id="home__information-segment"
+    div class="sixteen wide mobile sixteen wide tablet ten wide computer column" id="home__information-segment"
       div class="ui hidden divider"
       = image_tag("bannericon.png", id: "home__information-segment--bannericon")
       div class="ui hidden divider"
       = link_to "Claim Free Credits", new_user_registration_path, class: "ui orange button"
+
+    div class="fifteen wide mobile twelve wide tablet ten wide computer column" id="home__how-to-play-segment"
+      h5 class="ui header"
+        | HOW TO WIN
+      div class="ui hidden divider"
+
+      div class="ui two column centered grid"
+        div class="four column centered row"
+          div class="column"
+            = image_tag "icon1.png", class: "ui tiny image", id: 'home__how-to-win-image'
+          div class="left aligned column"
+            h4 class="ui header"
+              | SIGN UP
+            small
+              | Register to Lucky Ending and get free credits
+        div class="four column centered row"
+          div class="column"
+            = image_tag "icon2.png", class: "ui tiny image", id: 'home__how-to-win-image'
+          div class="left aligned column"
+            h4 class="ui header"
+              | CHOOSE A GAME
+            small
+              | Choose a game in the betting preiod
