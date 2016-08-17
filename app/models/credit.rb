@@ -1,6 +1,6 @@
 class Credit < ApplicationRecord
   belongs_to :user
-  has_many :transactions
+  has_many :transactions, dependent: :destroy
 
   attr_accessor :amount
 
@@ -56,16 +56,17 @@ class Credit < ApplicationRecord
     new_credit = old_credit + prize
 
     credit = Credit.where(user_id: user_id).first
+    game = Game.find(game_id)
+
     credit.update_attributes(game_credit: new_credit)
     credit.transactions.create!(
-      credit_id: c.id,
+      credit_id: credit.id,
       description: "Added ₱#{prize} to your credit by winning on #{game.description}"
     )
-
-    game = Game.find(game_id)
+    
     game.update_attributes(winner_determined: true)
     game.game_transactions.create!(
-      game_id: g.id,
+      game_id: game.id,
       description: 'Found winners for game'
     )
   end

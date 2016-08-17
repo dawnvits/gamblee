@@ -13,7 +13,7 @@ Documentation:
   Enabled: false
   
 Metrics/LineLength:
-  Max: 99
+  Max: 130
 
 Style/ClassAndModuleChildren:
   Enabled: false

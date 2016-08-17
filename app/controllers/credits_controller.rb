@@ -1,6 +1,6 @@
 class CreditsController < ApplicationController
   protect_from_forgery except: [:create]
-  
+
   def create
     response = validate_ipn_notification(request.raw_post)
     if response == 'VERIFIED'

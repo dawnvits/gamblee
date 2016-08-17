@@ -1,6 +1,6 @@
 class User < ApplicationRecord
-  has_one :credit
-  has_many :bets
+  has_one :credit, dependent: :destroy
+  has_many :bets, dependent: :destroy
 
   after_commit :create_free_credits, on: :create
   after_create :set_name

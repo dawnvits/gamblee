@@ -1,6 +1,7 @@
 class Bet < ApplicationRecord
   scope :latest, -> { order('created_at DESC') }
-  has_many :transactions
+  
+  has_many :transactions, dependent: :destroy
   belongs_to :game
   belongs_to :user
 
