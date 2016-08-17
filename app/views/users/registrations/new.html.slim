@@ -5,7 +5,7 @@
   div class="ui centered grid"
     div class="fourteen wide mobile ten wide tablet eight wide computer column"
       h4 class="ui header"
-        | Please compiete your details
+        | PLEASE COMPLETE YOUR DETAILS
       = form_for(resource, as: resource_name, url: registration_path(resource_name), :html => {class: 'ui form'}) do |f|
         = devise_error_messages!
         .field
@@ -21,7 +21,7 @@
         .field
           = f.text_field :contact_number, autocomplete: "off", placeholder: 'Contact Number'
         .actions
-          = f.submit "Complete Registration", class: "ui fluid medium orange button"
+          = f.submit "COMPLETE REGISTRATION", class: "ui fluid medium orange button"
         .field
           p
             | By registering, you confirm that you are above 21 years old and agree with our
