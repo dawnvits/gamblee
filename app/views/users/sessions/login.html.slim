@@ -24,6 +24,6 @@
           .actions
             = f.submit "Log in", class: "ui orange medium fluid button"
         .field
-          = link_to "Not yet a member?", new_registration_path(resource_name)
-        .field
-          = link_to "Forgot your password?", new_password_path(resource_name)
+          = link_to "Not yet a member?", new_registration_path(resource_name), id: 'registration__link'
+          br
+          = link_to "Forgot your password?", new_password_path(resource_name), id: 'registration__link'

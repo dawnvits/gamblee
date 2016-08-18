@@ -10,12 +10,6 @@ body.pushable > .pusher {
   padding-top: 40px;
 }
 
-#home__information-segment{
-  background: image-url("background.png");
-  background-size: cover;
-  border-bottom: 2px solid #e6c35b;
-}
-
 #sidebar-menu__facebook-login {
   float: right;
   margin-right: 40px;
@@ -27,17 +21,29 @@ body.pushable > .pusher {
 }
 
 #sidebar-menu__divider { 
-  margin-right: 40px;
   height: 1px;
   border: 0;
   border-top: 2px solid #ccc;
-  width: 12rem;
+  width: 13rem;
 }
 
-.ui.header, small, p {
-  color: rgba(255, 255, 255, 0.9);
+.ui.header, 
+.ui.divider,
+small, p,
+label {
+  color: rgba(255, 255, 255, 0.9) !important;
 }
 
 #home__how-to-win-image {
   float: right;
+}
+
+#registration__link {
+  color: rgba(255, 171, 0, 0.94);
+}
+
+#home__information-segment{
+  background: image-url("background.png");
+  background-size: cover;
+  border-bottom: 2px solid #e6c35b;
 }

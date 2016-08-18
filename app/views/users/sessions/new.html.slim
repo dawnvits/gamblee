@@ -1,6 +1,6 @@
 = render :partial => "shared/header"
 = render :partial => "shared/navigation"
-.pusher
+.pusher 
   div class="ui centered grid"
     div class="fourteen wide mobile ten wide tablet eight wide computer column"
       - flash.each do |key, value|
@@ -9,7 +9,7 @@
           div class="header"
             = value
 
-    div class="sixteen wide mobile sixteen wide tablet sixteen wide computer column" id="home__information-segment"
+    div class="sixteen wide column" id="home__information-segment"
       div class="ui hidden divider"
       = image_tag("bannericon.png", id: "home__information-segment--bannericon")
       div class="ui hidden divider"
@@ -36,4 +36,4 @@
             h4 class="ui header"
               | CHOOSE A GAME
             small
-              | Choose a game in the betting preiod
+              | Choose a game in the betting period
