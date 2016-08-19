@@ -1,20 +1,52 @@
 = render :partial => "shared/header"
 = render :partial => "shared/navigation"
+
+div class="ui bottom vertical inverted menu sidebar" id="bottom_menu"
+  div class="item"
+    h4 class="ui header"
+        | CURRENT PICKS
+  a class="item"
+      Item 1
+  a class="item"
+    Item 2  
+  a class="item"
+      Item 3
+
 .pusher
   div class="ui centered grid"
-    div class="ten wide mobile eight wide tablet six wide computer column"
+    
+    div class="four column row" 
+      div class="left floated column"
+        div class="ui hidden divider"
+        h4 class="ui header"
+          | Playing Credits: PHP 
+          = credits
+      div class="right floated column"
+        div class="ui hidden divider"
+        button class="ui mini orange button" VIEW WALLET
+
+    div class="fourteen wide mobile ten wide tablet six wide computer column"
       div class="ui hidden divider"
+        
         div class="ui attached message"
           div class="header"
             = @game.description
-          p
+          h6 class="ui header" id="black"
             = @game.schedule.strftime '%B %m, %Y at %I:%M%p'
         = form_tag process_bet_game_path(@game), class: "ui form attached fluid segment" do |f|
           .field
-            label Lucky Number (1-99)
+            label id="black" Lucky Number (1-99) 
             = number_field_tag :lucky_number, in: 1..99
           .field
-            label Amount
+            label id="black"  Amount
             = text_field_tag :bet_amount
           .field
-            = submit_tag "Place Bet", class: 'ui primary fluid button'
+            = submit_tag "Place Pick", class: 'ui orange fluid button'
+
+      div class="ui bottom fixed inverted orange menu"
+        div class="right menu"
+          div class="item"
+            button class="ui black button" id="bottom_menu-trigger"
+              VIEW PICKS
+          div class="item"
+            button class="ui black button" CHECKOUT

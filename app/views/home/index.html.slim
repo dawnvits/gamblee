@@ -1,21 +1,55 @@
 = render :partial => "shared/header"
 = render :partial => "shared/navigation"
+
 .pusher
   div class="ui centered grid"
-    div class="sixteen wide mobile ten wide tablet eight wide computer column"
-      div class="ui hidden divider"
+    div class="fourteen wide mobile ten wide tablet eight wide computer column" 
       - if flash[:notice]
-        div class="ui floating message"
-          p
+        div class="ui tiny green message"
+          i class="close icon"
+          div class="header"
             = flash[:notice]
-      - if !current_user.admin and @games.any?
-        - @games.each do |game|
-          -if game.accepts_bet?
-            div class="ui cards"
-              div class="card"
-                div class="content"
-                  div class="header"
-                    = game.description
-                  div class="description"
-                    = game.schedule.strftime '%B %m, %Y at %I:%M%p'
-                = link_to "Place Bet", game_path(game), class: 'ui bottom attached primary button'
+      
+    div class="sixteen wide column" id="home__information-segment"
+      
+      div class="ui centered grid"
+        div class="four column row" 
+          div class="left floated column"
+            div class="ui hidden divider"
+            h4 class="ui header"
+              | Playing Credits: PHP 
+              = credits
+          div class="right floated column"
+            div class="ui hidden divider"
+            button class="ui mini orange button" VIEW WALLET
+      
+      div class="ui hidden divider"
+        
+      h1 class="ui header"
+        | EARN & PLAY
+      h4 class="ui header"
+        | EARN FREE CREDITS WHILE PLAYING
+      <button class="ui mini circular black button">LEARN MORE</button>
+    
+      div class="ui hidden divider"
+
+    - if !current_user.admin and @games.any?
+      - @games.each do |game|
+        div class="ui card"
+          div class="content"
+            div class="header" 
+              = game.description
+            div class="description"
+              p id="black"
+                | Game Schedule
+            div class="meta"
+              = game.schedule.strftime '%B %d, %Y at %I:%M%p'
+            div class="description"
+              p id="black"
+                | Beting Ends at
+            div class="meta"
+              = game.schedule.advance(minutes: game.minutes_for_betting).strftime '%B %d, %Y at %I:%M%p'
+          div class="extra content"
+            = link_to "Place Bet", game_path(game), class: 'ui fluid orange button'
+
+    div class="ui hidden divider"
