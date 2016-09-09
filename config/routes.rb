@@ -8,6 +8,7 @@ Rails.application.routes.draw do
    get 'users/login', to: 'users/sessions#login', as: 'custom_login_page'
  end
 
+ resources :credits, only: :create
  resources :games do
    member do
      get 'summary'
@@ -16,8 +17,7 @@ Rails.application.routes.draw do
    end
  end
 
- resources :credits, only: :create
-
  get '/dashboard', to: 'home#dashboard'
+ get '/wallet', to: 'home#wallet'
  root 'home#index'
 end

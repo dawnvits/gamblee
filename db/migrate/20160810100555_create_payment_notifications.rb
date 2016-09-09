@@ -1,6 +1,6 @@
 class CreatePaymentNotifications < ActiveRecord::Migration[5.0]
   def change
-    create_table :payment_notifications do |t|
+    create_table :payment_notifications, id: :uuid do |t|
       t.string :payer_email
       t.string :txn_id
       t.string :ipn_track_id

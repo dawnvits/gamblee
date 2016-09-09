@@ -3,6 +3,12 @@ jQuery(document).on('turbolinks:load', function() {
     jQuery('#sidebar').sidebar('setting', 'transition', 'overlay').sidebar('toggle');
   });
 
+  jQuery('#home__request-cashout-button').on("click", function() {
+    $('.ui.modal').modal('show');
+  });
+
+  $('.ui.dropdown').dropdown();
+
   jQuery('#bottom_menu-trigger').on("click", function() {
     jQuery('#bottom_menu').sidebar('setting', 'transition', 'overlay').sidebar('toggle');
   });

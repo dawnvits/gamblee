@@ -5,9 +5,10 @@ class Bet < ApplicationRecord
   belongs_to :game
   belongs_to :user
 
-  validates_inclusion_of :lucky_number, in: 1..99
+  validates_inclusion_of :bet_number_1, in: 1..9
+  validates_inclusion_of :bet_number_2, in: 1..9
 
-  def self.get_winner_ids(game_id, lucky_number)
-    all.where('game_id = ? AND lucky_number = ?', game_id, lucky_number).pluck(:user_id)
+  def self.get_winner(game_id, bet_number_1, bet_number_2)
+    all.where('game_id = ? AND bet_number_1 = ? AND bet_number_2 = ?', game_id, bet_number_1, bet_number_2).pluck(:user_id)
   end
 end

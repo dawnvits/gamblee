@@ -1,6 +1,6 @@
 class CreateActiveAdminComments < ActiveRecord::Migration
   def self.up
-    create_table :active_admin_comments do |t|
+    create_table :active_admin_comments, id: :uuid do |t|
       t.string :namespace
       t.text   :body
       t.string :resource_id,   null: false

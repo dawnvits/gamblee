@@ -45,9 +45,14 @@ label {
 #home__information-segment{
   background: image-url("background.png");
   background-size: cover;
+  border-top: 2px solid #e6c35b;
   border-bottom: 2px solid #e6c35b;
 }
 
+.white {
+  color: #fff;
+}
+
 #black {
-  color: #000000 !important;
+  color: #000 !important;
 }

@@ -3,46 +3,48 @@
 .pusher
   div class="ui centered grid"
     div class="sixteen wide mobile twelve wide tablet twelve wide computer column"
-      div class="ui hidden divider	"
-      div class="ui top attached tabular menu"
-		a class="item active" data-tab="first"
-		  | Information
-		a class="item" data-tab="second"
-		  | Bets
-		a class="item" data-tab="third"
-		  | Credit Transaction History
-	  div class="ui bottom attached tab segment active" data-tab="first"
-	    h4 class="ui header"
-	      | Purchase Game Credits
-	      form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top"
-			input type="hidden" name="cmd" value="_s-xclick"
-			input type="hidden" name="hosted_button_id" value="SPY28L8LNH22G"
-			input type="image" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!"
-			img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1"
+      div class="ui hidden divider"
 
-	  div class="ui bottom attached tab segment" data-tab="second"
-		table class="ui black table"
-		  thead
-		    tr>
-		      th Event
-			  th Date
-		  tbody
-		    - @bets.each do |bet|
-		      tr
-		        td 
-		          = bet.description
-		        td
-		          = bet.created_at.strftime '%B %d, %Y at %I:%M%p'
-      div class="ui bottom attached tab segment" data-tab="third"
-		table class="ui black table"
-		  thead
-		    tr>
-		      th Event
-			  th Date
-		  tbody
-		    - @transactions.each do |transaction|
-		      tr
-		        td 
-		          = transaction.description
-		        td
-		          = transaction.created_at.strftime '%B %d, %Y at %I:%M%p'
+      div class="ui segment"
+        div class="ui top attached tabular menu"
+		  a class="item active" data-tab="first"
+		    | Information
+		  a class="item" data-tab="second"
+		    | Bets
+		  a class="item" data-tab="third"
+		    | Credit Transaction History
+	    div class="ui bottom attached tab segment active" data-tab="first"
+	      h4 class="ui header"
+	        | Purchase Game Credits
+	        form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top"
+			  input type="hidden" name="cmd" value="_s-xclick"
+			  input type="hidden" name="hosted_button_id" value="SPY28L8LNH22G"
+			  input type="image" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!"
+			  img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1"
+
+	    div class="ui bottom attached tab segment" data-tab="second"
+		  table class="ui black table"
+		    thead
+		      tr>
+		        th Event
+			    th Date
+		    tbody
+		      - @bets.each do |bet|
+		        tr
+		          td
+		            = bet.description
+		          td
+		            = bet.created_at.strftime '%B %d, %Y at %I:%M%p'
+        div class="ui bottom attached tab segment" data-tab="third"
+		  table class="ui black table"
+		    thead
+		      tr>
+		        th Event
+			    th Date
+		    tbody
+		      - @transactions.each do |transaction|
+		        tr
+		          td
+		            = transaction.description
+		          td
+		            = transaction.created_at.strftime '%B %d, %Y at %I:%M%p'

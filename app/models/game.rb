@@ -13,6 +13,6 @@ class Game < ApplicationRecord
   end
 
   def has_winner?
-    self.winner_determined && self.winning_number.between?(1, 99)
+    self.winner_determined
   end
 end

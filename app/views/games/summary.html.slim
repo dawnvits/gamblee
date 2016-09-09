@@ -10,17 +10,21 @@
               = flash[:notice]
         - if @game.winner_determined?
           div class="ui segment"
-            This game already has winners!
+            h4 class-"ui header" id="black"
+              This game already has winners!
         - else
           div class="ui segment"
              = form_tag determine_winner_game_path(@game), class: "ui form attached fluid segment" do |f|
-                div class="two fields"
+                div class="three fields"
                   .field
-                    h4 class="ui header"
+                    h4 class="ui header" id="black"
                       | There is no winner yet for this game
                   .field
                     label Winning Number for Game
-                    = number_field_tag :winning_number, in: 1..99
+                    = number_field_tag :winning_number_1, in: 1..9
+                  .field
+                    label Winning Number for Game
+                    = number_field_tag :winning_number_2, in: 1..9
                     div class="ui hidden divider"
                     = submit_tag "Determine Winner", class: "ui button"
         table class="ui table"
@@ -28,7 +32,8 @@
             tr
               th Description
               th Name of Betters
-              th Lucky Number
+              th Lucky Number 1
+              th Lucky Number 2
               th Amount
             tr
           tbody
@@ -38,7 +43,10 @@
                 - @user_ids.each do |id|
                   li = user_name(id)
               td
-                - @lucky_numbers.each do |ln|
+                - @lucky_numbers1.each do |ln|
+                  br = ln
+              td
+                - @lucky_numbers2.each do |ln|
                   br = ln
               td
                 - @amounts.each do |amount|

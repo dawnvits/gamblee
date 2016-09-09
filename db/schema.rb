@@ -10,12 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160816062203) do
+ActiveRecord::Schema.define(version: 20160901063010) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "uuid-ossp"
 
-  create_table "active_admin_comments", force: :cascade do |t|
+  create_table "active_admin_comments", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.string   "namespace"
     t.text     "body"
     t.string   "resource_id",   null: false
@@ -29,7 +30,7 @@ ActiveRecord::Schema.define(version: 20160816062203) do
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
   end
 
-  create_table "admin_users", force: :cascade do |t|
+  create_table "admin_users", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
@@ -46,20 +47,22 @@ ActiveRecord::Schema.define(version: 20160816062203) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
   end
 
-  create_table "bets", force: :cascade do |t|
-    t.integer  "game_id"
-    t.integer  "user_id"
+  create_table "bets", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.uuid     "game_id"
+    t.uuid     "user_id"
     t.text     "description"
-    t.integer  "lucky_number", default: 0
+    t.integer  "bet_number_1", default: 0
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
     t.integer  "amount",       default: 0
+    t.integer  "bet_number_2", default: 0
+    t.integer  "bet_amount",   default: 0
     t.index ["game_id"], name: "index_bets_on_game_id", using: :btree
     t.index ["user_id"], name: "index_bets_on_user_id", using: :btree
   end
 
-  create_table "credits", force: :cascade do |t|
-    t.integer  "user_id"
+  create_table "credits", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.uuid     "user_id"
     t.integer  "game_credit",  default: 0
     t.integer  "free_credit",  default: 0
     t.integer  "total_credit", default: 0
@@ -68,25 +71,26 @@ ActiveRecord::Schema.define(version: 20160816062203) do
     t.index ["user_id"], name: "index_credits_on_user_id", using: :btree
   end
 
-  create_table "game_transactions", force: :cascade do |t|
-    t.integer  "game_id"
+  create_table "game_transactions", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.uuid     "game_id"
     t.text     "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.index ["game_id"], name: "index_game_transactions_on_game_id", using: :btree
   end
 
-  create_table "games", force: :cascade do |t|
+  create_table "games", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.text     "description"
     t.datetime "schedule"
     t.integer  "minutes_for_betting", default: 0
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.boolean  "winner_determined",   default: false
-    t.integer  "winning_number",      default: 0
+    t.integer  "winning_number_1",    default: 0
+    t.integer  "winning_number_2",    default: 0
   end
 
-  create_table "payment_notifications", force: :cascade do |t|
+  create_table "payment_notifications", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.string   "payer_email"
     t.string   "txn_id"
     t.string   "ipn_track_id"
@@ -96,14 +100,14 @@ ActiveRecord::Schema.define(version: 20160816062203) do
   end
 
   create_table "transactions", force: :cascade do |t|
-    t.integer  "credit_id"
+    t.uuid     "credit_id"
     t.text     "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.index ["credit_id"], name: "index_transactions_on_credit_id", using: :btree
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
     t.string   "name"

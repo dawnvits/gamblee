@@ -10,8 +10,8 @@ class Credit < ApplicationRecord
     this.update_attributes(total_credit: total_credit)
   end
 
-  def can_bet?(amount, lucky_number)
-    if self.total_credit >= amount && lucky_number.between?(1, 99)
+  def can_bet?(amount)
+    if self.total_credit >= amount
       substract_from_credit(amount)
       true
     else
@@ -20,36 +20,45 @@ class Credit < ApplicationRecord
   end
 
   def substract_from_credit(amount)
-    remaining_credit = self.free_credit - amount
-
-    if remaining_credit <= 0
-      subtract_from_game_credit(remaining_credit.abs)
-      self.transactions.create!(
-        credit_id: self.id,
-        description: "Subtracted ₱#{amount - remaining_credit.abs} from your free credit"
-      )
-      self.update_attributes(free_credit: 0)
+    if self.free_credit == 0
+      subtract_from_game_credit(amount)
     else
-      self.subtract_from_free_credit(remaining_credit, amount)
+      remaining_credit = self.free_credit - amount
+
+      if remaining_credit <= 0
+        subtract_from_game_credit(remaining_credit.abs)
+        self.transactions.create!(
+          credit_id: self.id,
+          description: "Subtracted ₱#{amount - remaining_credit.abs} from your free credit. Your free credit is now ₱0"
+        )
+        self.update_attributes(free_credit: 0)
+      else
+        self.subtract_from_free_credit(remaining_credit, amount)
+      end
     end
     update_total_credit
   end
 
   def subtract_from_game_credit(amount)
-    remaining_credit = self.purchased_credit - amount
+    before_credit = self.game_credit
+    remaining_credit = self.game_credit - amount
     self.update_attributes(game_credit: remaining_credit)
     self.transactions.create!(
       credit_id: self.id,
-      description: "Subtracted ₱#{amount} from your game_credit"
+      description: "Subtracted ₱#{amount} from your game_credit. Your game credit was now ₱#{remaining_credit} from ₱#{before_credit}"
     )
   end
 
   def subtract_from_free_credit(remaining_credit, amount)
+    before_credit = self.free_credit
     self.update_attributes(free_credit: remaining_credit)
-    self.transactions.create(credit_id: self.id, description: "Subtracted ₱#{amount} from your free credit")
+    self.transactions.create(
+      credit_id: self.id,
+      description: "Subtracted ₱#{amount} from your free credit. Your free credit was now ₱#{remaining_credit} from ₱#{before_credit}"
+    )
   end
 
-  def self.update_for_winner(user_id, game_id)
+  def self.pick_winner(user_id, game_id)
     prize = Bet.where('user_id = ? AND game_id = ?', user_id, game_id).first.amount
     prize = prize * 2
     old_credit = self.where(user_id: user_id).first.game_credit

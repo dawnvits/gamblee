@@ -6,8 +6,9 @@ class GamesController < ApplicationController
   def summary
     @game = Game.find(params[:id])
     @user_ids = @game.bets.pluck(:user_id)
-    @lucky_numbers = @game.bets.pluck(:lucky_number)
-    @amounts = @game.bets.pluck(:amount)
+    @lucky_numbers1 = @game.bets.pluck(:bet_number_1)
+    @lucky_numbers2 = @game.bets.pluck(:bet_number_2)
+    @amounts = @game.bets.pluck(:bet_amount)
   end
 
   def new
@@ -27,30 +28,46 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find(params[:id])
+    @current_bets = @game.bets.where(user_id: current_user.id)
   end
 
   def process_bet
     @game = Game.find(params[:id])
 
-    if @game.accepts_bet? && current_user.credit.can_bet?(params[:bet_amount].to_i, params[:lucky_number].to_i)
-      current_user.new_bet(@game.id, @game.description, params[:lucky_number].to_i, params[:bet_amount].to_i)
-      flash[:notice] = "Placed bet successfully on #{@game.description} with ₱#{params[:bet_amount]}"
-    else
-      flash[:notice] = 'Unable to place bet. Please try again.'
-    end
+    if @game.bets.where(user_id: current_user.id).count <= 1
 
+      if proper_bet
+        if @game.accepts_bet? && current_user.credit.can_bet?(params[:bet_amount].to_i)
+          current_user.new_bet(@game.id,
+            @game.description,
+            params[:bet_number_1].to_i,
+            params[:bet_number_2].to_i,
+            params[:bet_amount].to_i
+          )
+          flash[:notice] = "Placed bet successfully on #{@game.description} with ₱#{params[:bet_amount]}"
+        else
+          flash[:notice] = 'Unable to place bet. Please try again.'
+        end
+      else
+        flash[:notice] = 'Unable to place bet. Please try again.'
+      end
+
+    else
+      flash[:notice] = "You've reached the maximum number of bets for this game."
+    end
+    
     redirect_to root_url
   end
 
   def determine_winner
     game = Game.find(params[:id])
-    winner_user_ids = Bet.get_winner_ids(game.id, params[:winning_number].to_i)
+    winners_list = Bet.get_winner(game.id, params[:winning_number_1].to_i, params[:winning_number_2].to_i)
 
-    if winner_user_ids.length >= 1
-      winner_user_ids.each do |id|
-        Credit.update_for_winner(id, game.id)
+    if winners_list.length >= 1
+      winners_list.each do |user_id|
+        Credit.pick_winner(user_id, game.id)
       end
-      flash[:notice] = 'Congratulations to the winner/s!'
+      flash[:notice] = 'Winners have already been selected!'
     else
       flash[:notice] = 'No Winner!'
     end
@@ -88,5 +105,11 @@ class GamesController < ApplicationController
 
   def game_params
     params.require(:game).permit(:schedule, :minutes_for_betting, :description)
+  end
+
+  def proper_bet
+    params[:bet_number_1].to_i.between?(1, 9) &&
+    params[:bet_number_2].to_i.between?(1, 9) &&
+    params[:bet_amount].to_i > 0
   end
 end
