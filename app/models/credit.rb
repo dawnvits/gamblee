@@ -12,11 +12,14 @@ class Credit < ApplicationRecord
 
   def can_bet?(amount)
     if self.total_credit >= amount
-      substract_from_credit(amount)
       true
     else
       false
     end
+  end
+
+  def adjust_credit(amount)
+    substract_from_credit(amount)
   end
 
   def substract_from_credit(amount)
@@ -70,7 +73,7 @@ class Credit < ApplicationRecord
     credit.update_attributes(game_credit: new_credit)
     credit.transactions.create!(
       credit_id: credit.id,
-      description: "Added ₱#{prize} to your credit by winning on #{game.description}"
+      description: "Added ₱#{prize} to your credit (previously ₱#{credit.total_credit}) by winning on #{game.description}"
     )
     
     game.update_attributes(winner_determined: true)

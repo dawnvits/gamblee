@@ -14,7 +14,6 @@ div class="ui bottom vertical inverted menu sidebar" id="bottom_menu"
 
 .pusher
   div class="ui centered grid"
-    
     div class="four column row" 
       div class="left floated column"
         div class="ui hidden divider"
@@ -43,13 +42,13 @@ div class="ui bottom vertical inverted menu sidebar" id="bottom_menu"
               = number_field_tag :bet_number_2, in: 1..9
             .field
               label id="black" Amount
-              = text_field_tag :bet_amount
+              = text_field_tag :amount
           .field
             = submit_tag "Place Pick", class: 'ui orange fluid button'
 
       div class="ui bottom fixed inverted orange menu"
         div class="item"
-          = @game.bets.where(user_id: current_user.id).count
+          = @game.unique_bets_for_game(current_user.id)
         div class="right menu"
           div class="item"
             button class="ui black button" id="bottom_menu-trigger"

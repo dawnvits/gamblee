@@ -33,7 +33,7 @@
     
       div class="ui hidden divider"
 
-    - if !current_user.admin and @games.any?
+    - if @games.any?
       - @games.each do |game|
         div class="ui card"
           div class="content"
@@ -51,5 +51,9 @@
               = game.schedule.advance(minutes: game.minutes_for_betting).strftime '%B %d, %Y at %I:%M%p'
           div class="extra content"
             = link_to "Place Bet", game_path(game), class: 'ui fluid orange button'
-
+        div class="ui hidden divider"
+    - else
+      div class="ui green message"
+        h4 id="black"
+          | Sorry, No games available for betting as of the moment
     div class="ui hidden divider"

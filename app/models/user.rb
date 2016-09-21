@@ -51,7 +51,7 @@ class User < ApplicationRecord
       user_id: self.id,
       bet_number_1: bet_number_1,
       bet_number_2: bet_number_2,
-      bet_amount: amount,
+      amount: amount,
       description: "Your lucky number for #{game_description} is #{bet_number_1}-#{bet_number_2}"
     )
   end

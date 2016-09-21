@@ -6,48 +6,76 @@
       div class="ui hidden divider"
         - if flash[:notice]
           div class="ui floating message"
-            p
+            p id="black"
               = flash[:notice]
         - if @game.winner_determined?
           div class="ui segment"
-            h4 class-"ui header" id="black"
-              This game already has winners!
+            p id="black"
+              | This game already has winners with the winning combination of
+              | &nbsp;
+              = @game.winning_number_1
+              |  and
+              | &nbsp;
+              = @game.winning_number_2
+            div class="ui hidden divider"
+
+            table class="ui table"
+              thead
+                tr
+                  th Name
+              tbody
+                - @winners.each do |winner|
+                  tr
+                    td
+                      = user_name(winner)
         - else
-          div class="ui segment"
-             = form_tag determine_winner_game_path(@game), class: "ui form attached fluid segment" do |f|
-                div class="three fields"
-                  .field
-                    h4 class="ui header" id="black"
-                      | There is no winner yet for this game
-                  .field
-                    label Winning Number for Game
-                    = number_field_tag :winning_number_1, in: 1..9
-                  .field
-                    label Winning Number for Game
-                    = number_field_tag :winning_number_2, in: 1..9
-                    div class="ui hidden divider"
-                    = submit_tag "Determine Winner", class: "ui button"
-        table class="ui table"
-          thead
-            tr
-              th Description
-              th Name of Betters
-              th Lucky Number 1
-              th Lucky Number 2
-              th Amount
-            tr
-          tbody
-            tr
-              td = @game.description
-              td 
-                - @user_ids.each do |id|
-                  li = user_name(id)
-              td
-                - @lucky_numbers1.each do |ln|
-                  br = ln
-              td
-                - @lucky_numbers2.each do |ln|
-                  br = ln
-              td
-                - @amounts.each do |amount|
-                  br = amount
+          -if @game.bets.any?
+            div class="ui segment"
+               = form_tag determine_winner_game_path(@game), class: "ui form attached fluid segment" do |f|
+                  div class="three fields"
+                    .field
+                      h4 class="ui header" id="black"
+                        | There is no winner yet for this game
+                    .field
+                      label Winning Number for Game
+                      = number_field_tag :winning_number_1, in: 1..9
+                    .field
+                      label Winning Number for Game
+                      = number_field_tag :winning_number_2, in: 1..9
+                      div class="ui hidden divider"
+                      = submit_tag "Determine Winner", class: "ui button"
+            table class="ui table"
+              thead
+                tr
+                  th Name of Betters
+                  th Lucky Number 1
+                  th Lucky Number 2
+                  th Amount
+                tr
+              tbody
+                - @bets.each do |bet_data|
+                  tr
+                    td
+                      = user_name(bet_data[0])
+                    td
+                      = bet_data[1]
+                    td
+                      = bet_data[2]
+                    td
+                      = bet_data[3]
+          - else
+            div class="ui card"
+              div class="content"
+                div class="header" id="black"
+                  = @game.description
+                div class="description"
+                  p id="black"
+                    | Game Schedule
+                div class="meta" id="black"
+                  = @game.schedule.strftime '%B %d, %Y at %I:%M%p'
+                div class="description"
+                  p id="black"
+                    | Beting Ends at
+                div class="meta" id="black"
+                  = @game.schedule.advance(minutes: @game.minutes_for_betting).strftime '%B %d, %Y at %I:%M%p'
+              div class="extra content"
